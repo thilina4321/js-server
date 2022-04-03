@@ -57,7 +57,7 @@ app.get("/api/v1/get-data", async (_, res) => {
 
 // 1.1.1 when running the it should .....
 const port = process.env.PORT;
-const dbs = `mongodb+srv://dilshan:thilina1234@cluster0.gjqff.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const dbs = `mongodb+srv://dilshan:<password>@cluster0.gjqff.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 mongoose
   .connect(dbs)
