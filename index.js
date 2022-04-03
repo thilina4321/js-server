@@ -35,10 +35,37 @@ app.post("/api/v1/post-request", async (req, res) => {
   }
 });
 
+app.post("/api/v1/add-data", async (req, res) => {
+  const { method } = req.body;
+
+  try {
+    await Post.create({ method });
+    return res.status(201).send({ desc: "success" });
+  } catch (error) {
+    return res.status(500).send({ error: "server error" });
+  }
+});
+
+app.get("/api/v1/get-data", async (_, res) => {
+  try {
+    const data = await Post.find();
+    return res.status(200).send({ data });
+  } catch (error) {
+    return res.status(500).send({ error: "server error" });
+  }
+});
+
 // 1.1.1 when running the it should .....
 const port = process.env.PORT;
-mongoose.connect("mongodb://127.0.0.1:27017/js-server", () => {
-  app.listen(port, () => {
-    console.log("App starts on port ", port);
+const dbs = `mongodb+srv://dilshan:thilina1234@cluster0.gjqff.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+mongoose
+  .connect(dbs)
+  .then(() => {
+    app.listen(port, () => {
+      console.log("App starts on port ", port);
+    });
+  })
+  .catch((e) => {
+    console.log("faild to connect to the db", e);
   });
-});
